@@ -22,7 +22,7 @@ env:
   AWS_REGION: us-west-1
   EKS_CLUSTER: iac-eks
 
-  jobs:
+jobs:
     terraform:
       name: "Apply terraform code changes"
       runs-on: ubuntu-latest 
