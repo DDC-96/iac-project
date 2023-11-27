@@ -47,7 +47,7 @@ jobs:
       
       - name: Terraform format #format terraform code 
         id: fmt 
-        run: terraform fmt -check
+        run: terraform fmt -check || (terraform fmt -write=true && git diff --exit-code)
 
       - name: Terraform validate #check syntax 
         id: validate 
