@@ -1,4 +1,5 @@
 name: "IAC"
+
 on:
   push:
     branches:
@@ -23,41 +24,40 @@ env:
   EKS_CLUSTER: iac-eks
 
 jobs:
-    terraform:
-      name: "Apply terraform code changes"
-      runs-on: ubuntu-latest 
-      defaults: 
-        run:
-          shell: bash 
-          working-directory: ./terraform
+  terraform:
+    name: "Apply terraform code changes"
+    runs-on: ubuntu-latest 
+    defaults: 
+      run:
+        shell: bash 
+        working-directory: ./terraform
 
-      steps:
-        - name: Checkout source code 
-          uses: actions/checkout@v4
+    steps:
+      - name: Checkout source code 
+        uses: actions/checkout@v4
 
-        - name: Setup Terraform with specified verison on the runner
-          uses: hashicorp/setup-terraform@v2
-          #with:
-            #terraform_version: 1.6.3
-        - name: Terraform init #install modules
-          id: init
-          run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
-        
-        - name: Terraform format #format terraform code 
-          id: fmt 
-          run: terraform fmt -check
+      - name: Setup Terraform with specified version on the runner
+        uses: hashicorp/setup-terraform@v2
+        # with:
+        #   terraform_version: 1.6.3
 
-        - name: Terraform validate #check syntax 
-          id: validate 
-          run: terraform validate  
+      - name: Terraform init #install modules
+        id: init
+        run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
+      
+      - name: Terraform format #format terraform code 
+        id: fmt 
+        run: terraform fmt -check
 
-        - name: Terraform plan #pre-stage run of overall code
-          id: plan
-          run: terraform plan -no-color -input=false -out planfile
-          continue-on-error: true 
-        
-        - name: Terraform plan status 
-          if: steps.plan.outcome == 'failure'
-          run: exit 1 
+      - name: Terraform validate #check syntax 
+        id: validate 
+        run: terraform validate  
 
-
+      - name: Terraform plan #pre-stage run of overall code
+        id: plan
+        run: terraform plan -no-color -input=false -out planfile
+        continue-on-error: true 
+      
+      - name: Terraform plan status 
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
