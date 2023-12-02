@@ -20,7 +20,7 @@ env:
   # S3 bucket for the terraform state
   BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE}}
   # REGION
-  AWS_REGION: us-west-1
+  AWS_REGION: us-west-2
   EKS_CLUSTER: iac-eks
 
 jobs:
