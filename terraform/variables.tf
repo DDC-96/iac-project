@@ -10,5 +10,4 @@ variable "clusterName" {
   default     = "iac-eks"
 }
 
-##
-## 
+# #  
