@@ -82,5 +82,5 @@ jobs:
       
       - name: Install Ingress controller
         if: steps.github-actions.outcome == 'success' && steps.getconfig.outcome == 'success'
-        run: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3
+        run: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.3/deploy/static/provider/cloud/deploy.yaml
         
