@@ -4,6 +4,7 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.25.0"
     }
+    # version is required for this project
 
     random = {
       source  = "hashicorp/random"
